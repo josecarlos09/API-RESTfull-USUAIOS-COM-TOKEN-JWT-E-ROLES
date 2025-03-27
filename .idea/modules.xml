@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/colecao-postman/colecao-postman.iml" filepath="$PROJECT_DIR$/colecao-postman/colecao-postman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/usuario - Copia.iml" filepath="$PROJECT_DIR$/.idea/usuario - Copia.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,62 @@
+server:
+  port: 8087  # Define a porta na qual a aplica��o ser� executada
+  servlet:
+    context-path: '/usuario/'  # Define o caminho base da aplica��o
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs  # Especifica o caminho onde a documenta��o em formato JSON ser� exposta
+  swagger-ui:
+    path: /swagger-ui/index.html  # Define o caminho para acessar a interface do Swagger UI
+
+# Configura��o da conex�o com o banco de dados PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/usuario  # URL de conex�o com o banco de dados PostgreSQL
+    username: postgres  # Usu�rio do banco de dados
+    password: Postgre  # Senha do banco de dados
+    driver-class-name: org.postgresql.Driver  # Define o driver JDBC para PostgreSQL
+    hikari:
+      maximum-pool-size: 10  # Define o tamanho m�ximo do pool de conex�es
+
+  jpa: # Configura��es do JPA (Java Persistence API)
+    open-in-view: false  # Desativa a estrat�gia Open-in-View para evitar problemas de Lazy Loading
+    hibernate: # Configura��es do Hibernate
+      ddl-auto: update  # Define a estrat�gia de atualiza��o autom�tica do esquema do banco de dados
+      dialect: org.hibernate.dialect.PostgreSQLDialect  # Define o dialeto espec�fico para PostgreSQL
+      jdbc:
+        lob.non-contextual-creation: true  # Evita problemas de cria��o de objetos LOB (Large Objects) no banco de dados
+
+    properties: # Propriedades adicionais do JPA
+      hibernate:
+        show_sql: true  # Exibe no console os comandos SQL gerados pelo Hibernate
+        format_sql: true  # Formata os comandos SQL para facilitar a leitura
+  flyway:
+    enabled: true  # Ativa o Flyway para executar as migra��es do banco de dados ao iniciar a aplica��o.
+    locations: classpath:db/migration  # Define o local onde os arquivos de migra��o SQL est�o armazenados. O Flyway buscar� nesse diret�rio (`src/main/resources/db/migration`).
+    baseline-on-migrate: true  # Se o banco j� cont�m tabelas, cria um ponto de partida (baseline) para evitar erros de migra��o ao rodar em um banco de dados j� existente.
+
+  # Exibir logs coloridos no console
+  output:
+    ansi:
+      enabled: Always
+
+    SQL: debug  # Define o n�vel de log do SQL como debug, exibindo as consultas geradas
+    type:
+      descriptor:
+        sql:
+          BasicBinder: trace  # Exibe os par�metros que s�o inseridos no SQL
+
+# Configura��o dos logs da aplica��o
+logging:
+  level:
+    plataforma_ead: TRACE  # Define o n�vel de log TRACE para a plataforma EAD
+    root: INFO  # Define o n�vel de log padr�o como INFO
+    org.springframework.web: DEBUG  # Ativa logs detalhados para requisi��es web do Spring
+    org.springframework.security: DEBUG  # Ativa logs detalhados para a seguran�a do Spring
+    org.hibernate: INFO  # Define logs do Hibernate no n�vel INFO
+
+# Configura��o de autoriza��o via JWT
+autorizacao:
+  jwtSecret: KtMyJNrMuVqahZMIQRKTaSagmZz4MjwXy+3D0awL1XCe0MMhXawXgTIteLVqfXVyjCDJk4HgJf0189g8Steq509KPrBn2FlGc+6plqti0d4=
+  jwtExpirationMs: 14400000  # Define o tempo de expira��o do token JWT (4 horas)
